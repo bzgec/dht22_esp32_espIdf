@@ -224,7 +224,7 @@ static BOOL read()
   // Waiting for sensor's response
 
   // First expect a low signal for ~80 microseconds (as response/acknowledgement signal)
-  if (expectPulse(LOW, 85) == _DHT22_TIMEOUT) 
+  if (expectPulse(LOW, 100) == _DHT22_TIMEOUT)
   {
 #ifdef _DHT22_DEBUG
     printf("DHT timeout waiting for start signal low pulse.\n");
@@ -233,7 +233,7 @@ static BOOL read()
     return FALSE;
   }
 
-  if (expectPulse(HIGH, 85) == _DHT22_TIMEOUT) 
+  if (expectPulse(HIGH, 100) == _DHT22_TIMEOUT)
   {
 #ifdef _DHT22_DEBUG
   	printf("DHT timeout waiting for start signal high pulse.\n");
@@ -252,8 +252,8 @@ static BOOL read()
   // the pulses are read into a array and then examined in a later step.
   for (BYTE i=0; i<80; i+=2) 
   {
-    adwDataCycles[i]   = expectPulse(LOW, 56);
-    adwDataCycles[i+1] = expectPulse(HIGH, 75);
+    adwDataCycles[i]   = expectPulse(LOW, 60);
+    adwDataCycles[i+1] = expectPulse(HIGH, 80);
   }
 
   // Timing critical code is now complete.
